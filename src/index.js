@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//import App from './App'; //exercise 1.1
 import App from './exercises/exercise1.2';
 import * as serviceWorker from './serviceWorker';
 

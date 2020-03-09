@@ -1,70 +1,89 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import './exercise.css';
 
 function App() {
-    const [autofill, setAutofill] = React.useState(true);
-    document.title = 'Names';
+    document.title = 'Binary Boxes';
 
     return (
         <div>
-            {autofill ? <Form setAutofill={setAutofill} /> : <Autofilled />}
+            <BinaryConverter />
         </div>
     )
 }
 
-function Autofilled() {
-    const [isActive, setActive] = React.useState(true);
+function BinaryConverter() {
+    const [decimalValue, setDecimalValue] = useState(0);
+    const [binaryArray, setBinaryArray] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
+
+    function bitHandler(index, checked) {
+        var sliceOne = binaryArray.slice(0, index);
+        var sliceTwo = binaryArray.slice(index);
+        var replace = 0;
+        if (checked) {
+            replace = 1;
+        }
+        setBinaryArray(
+            sliceOne.concat([replace], sliceTwo)
+        );
+        console.log(binaryArray + "b");
+        console.log(binaryArray.slice(0, index).concat([replace], (binaryArray.slice(index + 1))) + " barray");
+        console.log(sliceOne + " one");
+        console.log(index + " index");
+        console.log([replace] + " replace");
+        console.log(sliceTwo + " two");
+        console.log(binaryArray.length + " length");
+    }
 
     return (
         <div className="App">
             <Box>
-                <TextField id="firstname" label="First name: " defaultValue="Jaakko" />
-                <TextField disabled={isActive} id="middlename" label="Middle name: " defaultValue="mikalie" />
+                <Checkbox id={0} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
+                <Checkbox id={1} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
+                <Checkbox id={2} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
+                <Checkbox id={3} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
+                <Checkbox id={4} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
+                <Checkbox id={5} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
+                <Checkbox id={6} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
+                <Checkbox id={7} onChange={(e, checked) => {
+                    bitHandler(e.target.id, checked)
+                }} />
                 <br></br>
-                <FormControlLabel control={
-                    <Checkbox onClick={() => setActive(!isActive)} value="secondary" />
-                }
-                    label="Middle name"
-                />
+                <TextField id="binary" value={binaryArray} />
                 <br></br>
-                <TextField id="lastname" label="Last name: " defaultValue="Hakulinen" />
             </Box>
             <br></br>
-            <Button variant="contained" color="primary" >
-                Autofilled
-			</Button>
+            <ConvertButton />
+            <br></br>
+            <TextField id="decimal" value={decimalValue} />
         </div>
     );
 }
 
-function Form(props) {
-    const [isActive, setActive] = React.useState(false);
-
-
+function ConvertButton() {
     return (
-        <div className="App">
-            <Box>
-                <TextField id="firstname" label="First name: " />
-                <TextField disabled={!isActive} id="middlename" label="Middle name: " />
-                <br></br>
-                <FormControlLabel control={
-                    <Checkbox onClick={() => setActive(!isActive)} value="secondary" />
-                }
-                    label="Middle name"
-                />
-                <br></br>
-                <TextField id="lastname" label="Last name: " />
-            </Box>
-            <br></br>
-            <Button variant="contained" color="primary" onClick={() => { props.setAutofill(false) }} >
-                Autofill
-			</Button>
-        </div>
+        <Button variant="contained" color="primary">
+            Convert
+    </Button>
     );
 }
+
 
 export default App;
