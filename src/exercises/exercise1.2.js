@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -30,13 +30,6 @@ function BinaryConverter() {
         setBinaryArray(
             sliceOne.concat([replace], sliceTwo)
         );
-        console.log(binaryArray + " binaryArray");
-        //console.log(binaryArray.slice(0, index).concat([replace], (binaryArray.slice(index + 1))) + " barray");
-        console.log(sliceOne + " sliceone");
-        console.log(index + " index");
-        console.log([replace] + " replace");
-        console.log(sliceTwo + " slicetwo");
-        console.log(binaryArray.length + " length");
     }
 
     return (
@@ -67,22 +60,30 @@ function BinaryConverter() {
                     bitHandler(e.target.id, checked)
                 }} />
                 <br></br>
-                <TextField id="binary" value={binaryArray} />
+                <TextField id="binary" value={binaryArray.join('')} />
                 <br></br>
             </Box>
             <br></br>
-            <ConvertButton />
+            <ConvertButton binaryArray={binaryArray} setDecimalValue={setDecimalValue} />
             <br></br>
             <TextField id="decimal" value={decimalValue} />
         </div>
     );
 }
 
-function ConvertButton() {
+function ConvertButton(props) {
+    function onClick() {
+        var joinedBArray = (props.binaryArray).join('');
+        props.setDecimalValue(
+            parseInt(joinedBArray, 2)
+        );
+    }
     return (
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={(() => {
+            onClick();
+        })}>
             Convert
-    </Button>
+        </Button>
     );
 }
 
