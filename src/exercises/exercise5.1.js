@@ -76,15 +76,12 @@ function App() {
 
     return (
         <Box>
-			<Box style={{"zIndex": 2, "position": "fixed"}} display="block" displayPrint="none">
-			</Box>
 			<canvas
 				width={canvasSize[0]}
 				height={canvasSize[1]}
 				ref={canvasRef}
 				style={{"cursor": "none", "zIndex": 1, "position": "fixed"}}
 			/>
-            <h1>hei</h1>
 		</Box>
     );
 }
